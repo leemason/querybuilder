@@ -1,0 +1,26 @@
+{
+  "name": "querybuilder",
+  "version": "1.0.0",
+  "description": "Node Js Query builder inspired by Laravel Eloquent",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --debug --inline-diffs --full-trace"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leemason/querybuilder.git"
+  },
+  "author": "Lee Mason <contact@nohalfpixels.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/leemason/querybuilder/issues"
+  },
+  "homepage": "https://github.com/leemason/querybuilder#readme",
+  "dependencies": {
+    "lodash": "^4.6.1"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^2.4.5"
+  }
+}
