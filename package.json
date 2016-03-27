@@ -17,7 +17,10 @@
   },
   "homepage": "https://github.com/leemason/querybuilder#readme",
   "dependencies": {
-    "lodash": "^4.6.1"
+    "bluebird": "^3.3.4",
+    "config": "^1.19.0",
+    "lodash": "^4.6.1",
+    "mysql": "^2.10.2"
   },
   "devDependencies": {
     "chai": "^3.5.0",

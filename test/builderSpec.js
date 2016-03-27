@@ -355,6 +355,167 @@ describe("Builder", function(){
         });
     });
 
+    describe("#join()", function(){
+
+        it("should set the _joins property", function(){
+
+            expect(builder).to.have.a.property("_joins");
+
+            expect(builder._joins).to.eql([]);
+
+            builder.join('accounts', 'users.id', '=', 'accounts.user_id');
+
+            expect(builder._joins).to.eql([
+                ['accounts', 'users.id', '=', 'accounts.user_id']
+            ]);
+        });
+    });
+
+    describe("#innerJoin()", function(){
+
+        it("should set the _joins property", function(){
+
+            expect(builder).to.have.a.property("_joins");
+
+            expect(builder._joins).to.eql([]);
+
+            builder.innerJoin('accounts', 'users.id', '=', 'accounts.user_id');
+
+            expect(builder._joins).to.eql([
+                ['accounts', 'users.id', '=', 'accounts.user_id']
+            ]);
+        });
+    });
+
+    describe("#leftJoin()", function(){
+
+        it("should set the _leftJoins property", function(){
+
+            expect(builder).to.have.a.property("_leftJoins");
+
+            expect(builder._leftJoins).to.eql([]);
+
+            builder.leftJoin('accounts', 'users.id', '=', 'accounts.user_id');
+
+            expect(builder._leftJoins).to.eql([
+                ['accounts', 'users.id', '=', 'accounts.user_id']
+            ]);
+        });
+    });
+
+    describe("#leftOuterJoin()", function(){
+
+        it("should set the _leftOuterJoins property", function(){
+
+            expect(builder).to.have.a.property("_leftOuterJoins");
+
+            expect(builder._leftOuterJoins).to.eql([]);
+
+            builder.leftOuterJoin('accounts', 'users.id', '=', 'accounts.user_id');
+
+            expect(builder._leftOuterJoins).to.eql([
+                ['accounts', 'users.id', '=', 'accounts.user_id']
+            ]);
+        });
+    });
+
+    describe("#rightJoin()", function(){
+
+        it("should set the _rightJoins property", function(){
+
+            expect(builder).to.have.a.property("_rightJoins");
+
+            expect(builder._rightJoins).to.eql([]);
+
+            builder.rightJoin('accounts', 'users.id', '=', 'accounts.user_id');
+
+            expect(builder._rightJoins).to.eql([
+                ['accounts', 'users.id', '=', 'accounts.user_id']
+            ]);
+        });
+    });
+
+    describe("#rightOuterJoin()", function(){
+
+        it("should set the _rightOuterJoins property", function(){
+
+            expect(builder).to.have.a.property("_rightOuterJoins");
+
+            expect(builder._rightOuterJoins).to.eql([]);
+
+            builder.rightOuterJoin('accounts', 'users.id', '=', 'accounts.user_id');
+
+            expect(builder._rightOuterJoins).to.eql([
+                ['accounts', 'users.id', '=', 'accounts.user_id']
+            ]);
+        });
+    });
+
+    describe("#outerJoin()", function(){
+
+        it("should set the _outerJoins property", function(){
+
+            expect(builder).to.have.a.property("_outerJoins");
+
+            expect(builder._outerJoins).to.eql([]);
+
+            builder.outerJoin('accounts', 'users.id', '=', 'accounts.user_id');
+
+            expect(builder._outerJoins).to.eql([
+                ['accounts', 'users.id', '=', 'accounts.user_id']
+            ]);
+        });
+    });
+
+    describe("#fullOuterJoin()", function(){
+
+        it("should set the _fullOuterJoins property", function(){
+
+            expect(builder).to.have.a.property("_fullOuterJoins");
+
+            expect(builder._fullOuterJoins).to.eql([]);
+
+            builder.fullOuterJoin('accounts', 'users.id', '=', 'accounts.user_id');
+
+            expect(builder._fullOuterJoins).to.eql([
+                ['accounts', 'users.id', '=', 'accounts.user_id']
+            ]);
+        });
+    });
+
+    describe("#crossJoin()", function(){
+
+        it("should set the _crossJoins property", function(){
+
+            expect(builder).to.have.a.property("_crossJoins");
+
+            expect(builder._crossJoins).to.eql([]);
+
+            builder.crossJoin('accounts', 'users.id', '=', 'accounts.user_id');
+
+            expect(builder._crossJoins).to.eql([
+                ['accounts', 'users.id', '=', 'accounts.user_id']
+            ]);
+        });
+    });
+
+    describe("#joinRaw()", function(){
+
+        it("should set the _rawJoins property", function(){
+
+            expect(builder).to.have.a.property("_rawJoins");
+
+            expect(builder._rawJoins).to.eql([]);
+
+            builder.joinRaw('join accounts on users.id = accounts.user_id');
+
+            expect(builder._rawJoins).to.eql([
+                'join accounts on users.id = accounts.user_id'
+            ]);
+        });
+    });
+
+
     describe("#unionAll()", function(){
 
         it("should set the _method property", function(){
@@ -1008,6 +1169,19 @@ describe("Builder", function(){
                 .toSql('mysql');
 
             expect(result).to.equal("select * from `users` where `first_name` = ?;");
+
+        });
+    });
+
+    describe("#toString()", function() {
+        it("should return a query string with bindings injected", function () {
+
+            var result = builder
+                .table('users')
+                .where('first_name', '=', 'name')
+                .toString('mysql');
+
+            expect(result).to.equal("select * from `users` where `first_name` = 'name';");
 
         });
     });

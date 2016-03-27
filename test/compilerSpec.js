@@ -802,6 +802,80 @@ describe("Compiler", function() {
         });
 
 
+
+        it("should compile a select query with a join", function () {
+
+            builder.table('users')
+                .join('accounts', 'users.id', '=', 'accounts.user_id');
+
+            expect(builder.toSql()).to.equal("select * from `users` inner join `accounts` on `users`.`id` = `accounts`.`user_id`;");
+        });
+
+        it("should compile a select query with a left join", function () {
+
+            builder.table('users')
+                .leftJoin('accounts', 'users.id', '=', 'accounts.user_id');
+
+            expect(builder.toSql()).to.equal("select * from `users` left join `accounts` on `users`.`id` = `accounts`.`user_id`;");
+        });
+
+        it("should compile a select query with a left outer join", function () {
+
+            builder.table('users')
+                .leftOuterJoin('accounts', 'users.id', '=', 'accounts.user_id');
+
+            expect(builder.toSql()).to.equal("select * from `users` left outer join `accounts` on `users`.`id` = `accounts`.`user_id`;");
+        });
+
+        it("should compile a select query with a right join", function () {
+
+            builder.table('users')
+                .rightJoin('accounts', 'users.id', '=', 'accounts.user_id');
+
+            expect(builder.toSql()).to.equal("select * from `users` right join `accounts` on `users`.`id` = `accounts`.`user_id`;");
+        });
+
+        it("should compile a select query with a right outer join", function () {
+
+            builder.table('users')
+                .rightOuterJoin('accounts', 'users.id', '=', 'accounts.user_id');
+
+            expect(builder.toSql()).to.equal("select * from `users` right outer join `accounts` on `users`.`id` = `accounts`.`user_id`;");
+        });
+
+        it("should compile a select query with a outer join", function () {
+
+            builder.table('users')
+                .outerJoin('accounts', 'users.id', '=', 'accounts.user_id');
+
+            expect(builder.toSql()).to.equal("select * from `users` outer join `accounts` on `users`.`id` = `accounts`.`user_id`;");
+        });
+
+        it("should compile a select query with a full outer join", function () {
+
+            builder.table('users')
+                .fullOuterJoin('accounts', 'users.id', '=', 'accounts.user_id');
+
+            expect(builder.toSql()).to.equal("select * from `users` full outer join `accounts` on `users`.`id` = `accounts`.`user_id`;");
+        });
+
+        it("should compile a select query with a cross join", function () {
+
+            builder.table('users')
+                .crossJoin('accounts', 'users.id', '=', 'accounts.user_id');
+
+            expect(builder.toSql()).to.equal("select * from `users` cross join `accounts` on `users`.`id` = `accounts`.`user_id`;");
+        });
+
+        it("should compile a select query with a raw join", function () {
+
+            builder.table('users')
+                .joinRaw('join accounts on users.id = accounts.user_id');
+
+            expect(builder.toSql()).to.equal("select * from `users` join accounts on users.id = accounts.user_id;");
+        });
+
+
     });
 
 });

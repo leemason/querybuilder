@@ -1,8 +1,34 @@
-var Builder = require('./lib/builder'),
-    builder = new Builder();
+var Manager = require('./lib/manager');
 
+var db = new Manager();
 
-var sql = builder
+/*
+db.connection().table('users').insert({
+    first_name: 'lee',
+    last_name: 'mason'
+}).then(function(results){
+    console.log(results);
+}).catch(function(err){
+    console.log(err);
+});
+
+return;
+*/
+
+db.connection()
+    .table('users')
+    .take(1)
+    .get()
+    .then(function(results, fields){
+        console.log(results, fields);
+    }).catch(function(err){
+        console.log(err);
+    });
+
+return;
+
+var sql = db
+            .connection()
             .table('users')
             .select('first_name', 'email')
             .where('first_name', 'Lee')
@@ -31,4 +57,4 @@ var sql = builder
             .skip(5)
             .take(10);
 
-console.log(sql.toSql());
+console.log(sql.get());
