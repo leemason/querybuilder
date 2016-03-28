@@ -1,33 +1,95 @@
-var Manager = require('./lib/manager');
+var Manager = require('./lib/manager'),
+    Repository = require('./lib/repository'),
+    Model = require('./lib/model');
 
-var db = new Manager();
 
-/*
-db.connection().table('users').insert({
-    first_name: 'lee',
-    last_name: 'mason'
-}).then(function(results){
-    console.log(results);
-}).catch(function(err){
-    console.log(err);
+var User = Model.extend({
+
+    attributes: {
+        first_name: 'string',
+        last_name: {
+            type: 'string'
+        },
+        email: {
+            type: 'string',
+            default: 'you need an email!'
+        }
+    },
+
+    getName: function(){
+        return this.get('first_name') + ' ' + this.get('last_name');
+    }
 });
 
-return;
-*/
+var UserRepo = Repository.extend({
+    model: User,
+    tableName: 'users',
+    connection: Manager.connection()
+});
 
-db.connection()
+var repo = new UserRepo();
+
+repo.find(8).then(function(model){
+    model.last_name = 'Mason';
+
+    console.log(model.isDirty());
+
+    repo.save(model).then(function(result){
+        console.log(result);
+    })
+});
+
+/*
+repo
+    .all()
+    .then(function(results){
+        console.log(results);
+    });
+
+repo
+    .where(1, 1)
+    .get()
+    .then(function(results){
+        console.log(results);
+    });
+
+repo
+    .where(1, 1)
+    .first()
+    .then(function(results){
+        console.log(results);
+    });
+
+repo
+    .find(1)
+    .then(function(results){
+        console.log(results);
+    });
+*/
+//console.log();
+
+
+/*
+
+Manager.connection()
     .table('users')
     .take(1)
-    .get()
+    .first()
     .then(function(results, fields){
-        console.log(results, fields);
+        return new User(results);
+    })
+    .then(function(obj){
+        console.log(obj.toJSON());
+        console.log(obj);
     }).catch(function(err){
         console.log(err);
     });
 
+*/
+
 return;
 
-var sql = db
+var sql = Manager
             .connection()
             .table('users')
             .select('first_name', 'email')

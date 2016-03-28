@@ -1087,7 +1087,7 @@ describe("Builder", function(){
                 first_name: 'testing'
             });
 
-            expect(builder.getBindings()).to.eql(['first', 'last', 'admin, editor, moderator', 100, 'testing']);
+            expect(builder.getBindings()).to.eql(['testing', 'first', 'last', 'admin, editor, moderator', 100]);
 
 
             //simulate an mass update to ensure getBindings merges params
@@ -1103,7 +1103,7 @@ describe("Builder", function(){
                 }
             ]);
 
-            expect(builder.getBindings()).to.eql(['first', 'last', 'admin, editor, moderator', 100, 'testing', 'testing', 'testing']);
+            expect(builder.getBindings()).to.eql(['testing', 'testing', 'testing', 'first', 'last', 'admin, editor, moderator', 100]);
 
             //reset insert
             builder.insert([]);
@@ -1113,7 +1113,7 @@ describe("Builder", function(){
                 first_name: 'testing'
             });
 
-            expect(builder.getBindings()).to.eql(['first', 'last', 'admin, editor, moderator', 100, 'testing']);
+            expect(builder.getBindings()).to.eql(['testing', 'first', 'last', 'admin, editor, moderator', 100]);
 
         });
 
